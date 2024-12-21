@@ -1,11 +1,11 @@
 import numpy as np
 
-class DecionTree:
+class DecisionTree:
     def __init__(self,maxProf=3):
         self.maxProf=maxProf
         self.tree= None
 class Node:
-    def __init__(self,feat,dex,sin,val,sol):
+    def __init__(self,feat=None,dex=None,sin=None,val=None,sol=None):
         self.feat=feat
         self.dex= dex
         self.sin=sin
@@ -54,6 +54,22 @@ class Node:
         subtreeSin= self._build_tree(xSin,yLSin,prof+1)
         subtreeDex= self._build_tree(xDex,yDex,prof+1)
         return self.Node(feat=feat, sol=sol, sin=subtreeSin, dex=subtreeDex)
+    # # addestra l'albero
+    def fit(self, x, y):
+        self.tree=self._build_tree(x,y,prof=0)
+    # # fa una predizione
+    def _predict_one(self, x, node):
+        if node.val is not None:  
+            return node.val
+        if x[node.feat] <= node.sol:
+            return self._predict_one(x, node.sin)
+        else:
+            return self._predict_one(x, node.dex)
+    # # fa predizione sul intero dataset
+    def predict(self, X):
+        return np.array([self._predict_one(x, self.tree) for x in X])
+
+
 
 
 
