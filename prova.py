@@ -2,12 +2,12 @@ import numpy as np
 
 class DecionTree:
     def __init__(self,maxProf=3):
-        self.maxDeap=maxProf
+        self.maxProf=maxProf
         self.tree= None
 class Node:
-    def __init__(self,feat,des,sin,val,sol):
+    def __init__(self,feat,dex,sin,val,sol):
         self.feat=feat
-        self.des= des
+        self.dex= dex
         self.sin=sin
         self.val= val
         self.sol= sol
@@ -41,4 +41,19 @@ class Node:
                     bFeat= feat
                     bSol= sol
         return bFeat, bSol	
+    # # crea realmete il nostro albero decisionale in maniera ricorsiva 
+    def _build_tree(self,x,y,prof):
+        if prof>= self.maxProf or len(np.unique(y)) == 1:
+            val = np.bincount(y).argmax()
+            return self.Node(val=val)
+        feat,sol= self._find_best_split(x,y)
+        if feat is None:
+            val = np.bincount(y).argmax()
+            return self.Node(val=val)
+        xSin,yLSin,xDex, yDex= self._split(x,y,feat,sol)
+        subtreeSin= self._build_tree(xSin,yLSin,prof+1)
+        subtreeDex= self._build_tree(xDex,yDex,prof+1)
+        return self.Node(feat=feat, sol=sol, sin=subtreeSin, dex=subtreeDex)
+
+
 
