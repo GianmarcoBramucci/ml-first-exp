@@ -94,7 +94,7 @@ tree = DecisionTree(maxProf=3)
 tree.fit(XTrain, yTrain)
 
 # Fai previsioni sul test set
-yPred = tree.predict(XTrain)
+yPred = tree.predict(XTest)
 
 # Valuta il modello
 accuracy = accuracy_score(yTest, yPred)
