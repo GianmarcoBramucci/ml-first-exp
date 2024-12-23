@@ -68,3 +68,34 @@ class DecisionTree:
     # # fa predizione sul intero dataset
     def predict(self, X):
         return np.array([self._predict_one(x, self.tree) for x in X])
+
+
+
+
+
+###################################TEST#######################################
+
+
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+
+# Carica il dataset Iris
+iris = load_iris()
+X, y = iris.data, iris.target
+
+# Dividi il dataset in training e test set
+XTrain, XTest, yTrain, yTest = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# Crea un'istanza del tuo DecisionTree
+tree = DecisionTree(maxProf=3)
+
+# Addestra l'albero decisionale
+tree.fit(XTrain, yTrain)
+
+# Fai previsioni sul test set
+yPred = tree.predict(XTrain)
+
+# Valuta il modello
+accuracy = accuracy_score(yTest, yPred)
+print("Accuratezza:", accuracy)
