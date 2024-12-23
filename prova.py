@@ -130,3 +130,10 @@ plt.xlabel("Predicted")
 plt.ylabel("True")
 plt.title("Decision Tree")
 plt.show()
+
+####CONSIDERAZIONI SUL PROGETTO####
+#mi e piaciuto molto andarmi a studiare come funziona un albero decisionale e andare a studiare la matemarica dientro il suo funzionamento (es. il coificente gini e vedere che differenze ci sono con l entropia)
+#sviluppare e pensare algortimi in maniera ricorsiva capire come iniziare e come ottenere la migliore feat da utilizzare e iniziare a svillupare i vari nodi 
+#poi sinceramete dopo aver fatto tutto cio mi sono leggermente annoiato nella parte grafica e stata forse la parte che mi e piacito meno fare anche se comunque affascinante per aver modo di visualizzare e verificare il lavoro fatto 
+#come prossimi obiettivi vorrei implementare il Gradient Boosting per poi come step finale utilizzare il XGBoost
+
