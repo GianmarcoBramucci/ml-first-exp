@@ -1,5 +1,10 @@
 import numpy as np
-
+import matplotlib.pyplot as plt
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+import seaborn as sns
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 class DecisionTree:
     def __init__(self,maxProf=3):
         self.maxProf=maxProf
@@ -70,15 +75,7 @@ class DecisionTree:
         return np.array([self._predict_one(x, self.tree) for x in X])
 
 
-
-
-
 ###################################TEST#######################################
-
-
-from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
 
 # Carica il dataset Iris
 iris = load_iris()
@@ -99,3 +96,37 @@ yPred = tree.predict(XTest)
 # Valuta il modello
 accuracy = accuracy_score(yTest, yPred)
 print("Accuratezza:", accuracy)
+
+#####################RAPRESENTAZIONE GRAFICA (trovata online e aggiustata leggermente per farla funzionare)###############################################
+
+report= classification_report(yTest, yPred)
+print(report)
+
+def plot_tree(node, depth=0, x=0.5, y=1.0, spacing=0.1, ax=None):
+    if ax is None:
+        fig, ax = plt.subplots(figsize=(12, 8))
+        ax.axis("off")
+    if node.val is not None:
+        ax.text(x, y, f"Leaf: {node.val}", bbox=dict(boxstyle="round", facecolor="lightgreen"))
+    else:
+        ax.text(x, y, f"Feat {node.feat}\n<= {node.sol}", bbox=dict(boxstyle="round", facecolor="lightblue"))
+        x_left = x - spacing / (depth + 1)
+        x_right = x + spacing / (depth + 1)
+        y_child = y - 0.2
+        ax.plot([x, x_left], [y, y_child], 'k-') 
+        ax.plot([x, x_right], [y, y_child], 'k-')
+        plot_tree(node.sin, depth + 1, x_left, y_child, spacing, ax)
+        plot_tree(node.dex, depth + 1, x_right, y_child, spacing, ax)
+
+    if depth == 0:
+        plt.show()
+        
+plot_tree(tree.tree)
+
+
+plt.figure(figsize=(6, 4))
+sns.heatmap(confusion_matrix(yTest, yPred), annot=True, fmt="d", cmap="Blues", xticklabels=iris.target_names, yticklabels=iris.target_names)
+plt.xlabel("Predicted")
+plt.ylabel("True")
+plt.title("Decision Tree")
+plt.show()
