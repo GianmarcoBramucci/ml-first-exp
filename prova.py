@@ -4,13 +4,13 @@ class DecisionTree:
     def __init__(self,maxProf=3):
         self.maxProf=maxProf
         self.tree= None
-class Node:
-    def __init__(self,feat=None,dex=None,sin=None,val=None,sol=None):
-        self.feat=feat
-        self.dex= dex
-        self.sin=sin
-        self.val= val
-        self.sol= sol
+    class Node:
+        def __init__(self,feat=None,dex=None,sin=None,val=None,sol=None):
+            self.feat=feat
+            self.dex= dex
+            self.sin=sin
+            self.val= val
+            self.sol= sol
     # # calcolo del indice gini per vedere la quantita di impurita(per me: va da 0 a 1 piu basse e piu e ordinato fa piu o meno la stessa cosa della entropia solo che ha un costo minore ed anche meno preciso)
     def _calculate_gini(self, y):
         classi,count=  np.unique(y, return_counts=True)
@@ -68,8 +68,3 @@ class Node:
     # # fa predizione sul intero dataset
     def predict(self, X):
         return np.array([self._predict_one(x, self.tree) for x in X])
-
-
-
-
-
