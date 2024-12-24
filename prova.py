@@ -74,6 +74,18 @@ class DecisionTree:
     def predict(self, X):
         return np.array([self._predict_one(x, self.tree) for x in X])
 
+class GradientBoosting:
+    def __init__(self,baseClassM,indexMT=10,badgerL=0.1):
+## baseClassM: la classe del modello che vogliamo utilizzare
+## indexMT: il numero di modelli che vogliamo addestrare
+## badgerL: il tasso di apprendimento (learning rate)
+## Questi sono i parametri inizializzati con i valori sopra indicati, e possono essere modificati successivamente o cambiare insieme al nostro modello.
+        self.baseClassM= baseClassM
+        self.indexMT= indexMT
+        self.badgerL= badgerL
+        self.models=[]
+        self.lostl=[]
+
 
 ###################################TEST#######################################
 
